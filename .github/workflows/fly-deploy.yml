@@ -20,7 +20,7 @@ jobs:
       run: npm run test
 
     - name: crear imagen de docker
-      run: docker build -t nodeSami:latest .
+      run: docker build -t nodesami:latest .
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
