@@ -5,7 +5,7 @@ app.use(express.json());
 
 // Ruta básica
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Hello World! From Sami Mimun! CICD 7" });
+  res.status(200).json({ message: "Hello World! From Sami Mimun! CICD 8" });
 });
 
 // Ruta de ejemplo para pruebas

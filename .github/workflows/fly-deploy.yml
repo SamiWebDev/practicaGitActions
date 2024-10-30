@@ -3,31 +3,32 @@ name: Fly Deploy
 on:
   push:
     branches:
-    - deploy-gitactions
+      - deploy-gitactions
 
 jobs:
   test-build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Chequeo del codigo
-      uses: actions/checkout@v3
+      - name: Chequeo del codigo
+        uses: actions/checkout@v3
 
-    - name: Instalar las dependencias
-      run: npm install
+      - name: Instalar las dependencias
+        run: npm install
 
-    - name: ejecutar test
-      run: npm run test
+      - name: ejecutar test
+        run: npm run test
 
-    - name: crear imagen de docker
-      run: docker build -t nodesami:latest .
+      - name: crear imagen de docker
+        run: docker build -t nodesami:latest .
   deploy:
     name: Deploy app
+    needs: test-build
     runs-on: ubuntu-latest
     concurrency: deploy-group
     steps:
-    - uses: actions/checkout@v4
-    - uses: superfly/flyctl-actions/setup-flyctl@master
-    - run: flyctl deploy --remote-only
-      env:
-        FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
